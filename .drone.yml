@@ -20,3 +20,19 @@ publish:
     password: $$DRONE_REGISTRY_PASS
     email: drone@stackdot.com
     storage_driver: overlay
+
+deploy:
+  rancher:
+    url: $$RANCHER_URL
+    access_key: $$RANCHER_KEY
+    secret_key: $$RANCHER_SECRET
+    service: stackdot/swagger-ui
+    docker_image: docker.stackdot.com/stackdot/swagger-ui:$$BRANCH.$$BUILD_NUMBER
+    confirm: true
+    timeout: 300
+    when:
+      branch: master
+    
+cache:
+  mount:
+    - node_modules
