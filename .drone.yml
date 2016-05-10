@@ -1,0 +1,22 @@
+build:
+  image: docker.stackdot.com/lib/node:5.11.0
+  pull: true
+  auth_config:
+    username: drone
+    password: $$DRONE_REGISTRY_PASS
+    email: drone@tstllc.net
+  commands:
+    - npm update
+    - gulp
+
+publish:
+  docker:
+    repo: stackdot/swagger-ui
+    tag:
+      - '$${BRANCH/master/latest}'
+      - '$$BRANCH.$$BUILD_NUMBER'
+    registry: docker.stackdot.com
+    username: $$DRONE_REGISTRY_USER
+    password: $$DRONE_REGISTRY_PASS
+    email: drone@stackdot.com
+    storage_driver: overlay

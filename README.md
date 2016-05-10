@@ -1,3 +1,6 @@
+[![Build Status](https://drone.stackdot.com/api/badges/stackdot/swagger-ui/status.svg)](https://drone.stackdot.com/stackdot/swagger-ui)
+
+
 # Swagger UI responsive theme
 
 With inspiration from the [Auth0 api explorer](https://auth0.com/docs/apiv2) the original Swagger UI repo is modified to use a responsive layout.

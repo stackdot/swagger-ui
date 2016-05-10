@@ -7,12 +7,23 @@
 
             <div class="token-generator hide">
                 <span data-close class="icon-budicon-471"></span>
+                {{!-- 
                 <label for="input-api-token">Url</label>
                 <input type="text" autocorrect="off" class="form-control" id="input_baseUrl"
                        placeholder="http://example.com/api">
+                --}}
+
+                {{#if info}}
+                    {{#if info.image}}
+                        <div style="text-align:center; padding-bottom: 20px;">
+                            <img src="{{info.image}}" style="width: 80px;" alt="">
+                        </div>
+                    {{/if}}
+                    <div class="info_title">{{info.title}}</div>
+                {{/if}}
 
                 <div class="scope-selector">
-                    <label for="scopes">Token</label>
+                    <label for="scopes">API Token</label>
 
                     <div class="area controls">
                         <input type="text" autocorrect="off" class="form-control" id="input_apiKey"
@@ -37,7 +48,6 @@
             <p class="changes-disclaimer">
                 <span class='info' id='api_info'>
                     {{#if info}}
-                        <span class="info_title">{{info.title}}</span>
                         <span class="markdown">{{{info.description}}}</span>
                     {{/if}}
 
