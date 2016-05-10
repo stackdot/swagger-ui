@@ -7,7 +7,7 @@ build:
     email: drone@tstllc.net
   commands:
     - npm update
-    - gulp
+    - node_modules/gulp/bin/gulp.js
 
 publish:
   docker:
