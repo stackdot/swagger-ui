@@ -1,0 +1,94 @@
+
+
+# App UI
+# -------------------------------
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gathir-docs
+  namespace: gathir
+spec:
+  replicas: 2
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: gathir-docs
+        project: gathir
+        type: ui
+    spec:
+      imagePullSecrets:
+        - name: stackdot-registry
+      restartPolicy: Always
+      containers:
+      - name: gathir-docs
+        # image: docker.stackdot.com/stackdot/docs:{{build.branch}}.build-{{build.number}}
+        image: docker.stackdot.com/stackdot/docs:latest
+        ports:
+        - name: http
+          containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+            scheme: HTTP
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: .25
+            memory: 100M
+
+
+--- 
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: gathir-docs
+  namespace: gathir
+  labels:
+    app: gathir-docs
+    project: gathir
+spec:
+  ports:
+  - port: 80
+    targetPort: http
+  selector:
+    app: gathir-docs
+    project: gathir
+
+
+---
+
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gathir-docs
+  namespace: gathir
+  annotations:
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: gathir-docs
+    project: gathir
+spec:
+  tls:
+  - hosts:
+    - docs.gathir.com
+    secretName: gathir-docs
+  rules:
+  - host: docs.gathir.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: gathir-docs
+          servicePort: 80
+

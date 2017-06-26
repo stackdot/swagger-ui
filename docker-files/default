@@ -1,6 +1,5 @@
 server {
 	listen 80 default_server;
-	listen [::]:80 default_server;
 	root /ui/build;
 	server_name _;
 	location / {

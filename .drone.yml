@@ -16,9 +16,9 @@ pipeline:
     when:
       branch: master
 
-  # deploy:
-  #   image: vallard/drone-kube
-  #   template: kube.yml
-  #   namespace: gathir
-  #   when:
-  #     branch: master
+  deploy:
+    image: vallard/drone-kube
+    template: kube.yml
+    namespace: gathir
+    when:
+      branch: master
