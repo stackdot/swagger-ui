@@ -16,13 +16,13 @@
                 {{#if info}}
                     {{#if info.image}}
                         <div style="text-align:center; padding-bottom: 20px;">
-                            <img src="{{info.image}}" style="width: 80px;" alt="">
+                            <img src="{{info.image}}" style="width: 80px;" alt="{{info.title}}">
                         </div>
                     {{/if}}
-                    <div class="info_title">{{info.title}}</div>
+                    {{!-- <div class="info_title">{{info.title}}</div> --}}
                 {{/if}}
 
-                <div class="scope-selector">
+{{!--                 <div class="scope-selector">
                     <label for="scopes">API Token</label>
 
                     <div class="area controls">
@@ -34,7 +34,7 @@
                         <div data-add-scope id="explore" class="btn"><span class="icon-budicon-519"></span>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </div>
             <div data-navigator>

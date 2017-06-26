@@ -2424,3 +2424,16 @@ body {
     text-align: center;
     padding-top: 10px
 }
+
+#swagger_sidebar .sticky-nav-placeholder .sticky-nav .token-generator {
+    // padding: 0;
+    // margin: 0;
+    // position: relative;
+}
+
+#swagger_sidebar .sticky-nav-placeholder .sticky-nav .token-generator img {
+    // max-width: 100%;
+}
+
+
+

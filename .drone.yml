@@ -1,38 +1,24 @@
-build:
-  image: docker.stackdot.com/lib/node:5.11.0
-  pull: true
-  auth_config:
-    username: drone
-    password: $$DRONE_REGISTRY_PASS
-    email: drone@tstllc.net
-  commands:
-    - npm update
-    - node_modules/gulp/bin/gulp.js
 
-publish:
+pipeline:
+  compile:
+    image: docker.stackdot.com/lib/node:6.3.1
+    commands:
+      - npm update
+      - npm run build
+
   docker:
-    repo: stackdot/swagger-ui
+    image: plugins/docker
+    repo: docker.stackdot.com/stackdot/docs
     tag:
-      - '$${BRANCH/master/latest}'
-      - '$$BRANCH.$$BUILD_NUMBER'
-    registry: docker.stackdot.com
-    username: $$DRONE_REGISTRY_USER
-    password: $$DRONE_REGISTRY_PASS
-    email: drone@stackdot.com
+      - '${DRONE_BRANCH/master/latest}'
+      - '${DRONE_BRANCH}.build-${DRONE_BUILD_NUMBER}'
     storage_driver: overlay
-
-deploy:
-  rancher:
-    url: $$RANCHER_URL
-    access_key: $$RANCHER_KEY
-    secret_key: $$RANCHER_SECRET
-    service: stackdot/swagger-ui
-    docker_image: docker.stackdot.com/stackdot/swagger-ui:$$BRANCH.$$BUILD_NUMBER
-    confirm: true
-    timeout: 300
     when:
       branch: master
-    
-cache:
-  mount:
-    - node_modules
+
+  # deploy:
+  #   image: vallard/drone-kube
+  #   template: kube.yml
+  #   namespace: gathir
+  #   when:
+  #     branch: master

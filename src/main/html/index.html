@@ -40,12 +40,14 @@
 
     <script type="text/javascript">
         $(function () {
-            var url = window.location.search.match(/app=([^&]+)/);
-            if (url && url.length > 1) {
-                url = decodeURIComponent(url[1]);
-                url = "https://"+url+".stackdot.com/docs/swagger.json";
-            } else {
-                url = "https://water-gun.stackdot.com/docs/swagger.json";
+            var url = ''
+
+            if(window.location.hostname === 'localhost'){
+                url = "http://localhost:8080/swagger.json";
+            }
+
+            if(window.location.hostname == 'docs.gathir.com'){
+                url = "https://api.gathir.com/docs/swagger.json";
             }
 
             window.swaggerUi = new SwaggerUi({
